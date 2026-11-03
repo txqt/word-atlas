@@ -24,6 +24,42 @@ export function Highlight({ text, word }: { text: string; word: string }) {
 export function Pronounce({ entry, refw }: { entry: Entry; refw: WordRef | Entry }) {
   const atlas = useAtlas();
   const accent = useStore((s) => s.settings.accent);
+  // Two readings of one spelling: a row per reading, both accents inside it,
+  // numbered so the sense list can point back at the sound it belongs to.
+  if (entry.pron?.length) {
+    const order = accent === "us" ? (["us", "uk"] as const) : (["uk", "us"] as const);
+    return (
+      <div className="pron pron-groups">
+        {entry.pron.map((p, i) => (
+          <div className="pron-group" key={i}>
+            <span className="pron-idx" title={`Reading ${i + 1}`} aria-label={`Reading ${i + 1}`}>
+              {i + 1}
+            </span>
+            {p.tts && (
+              <span className="pron-tts" title="Synthesised voice, not a human recording">
+                Synth
+              </span>
+            )}
+            {order.map((acc) => (
+              <Speak
+                key={acc}
+                url={atlas.audio(refw, acc, i)}
+                text={entry.w}
+                accent={acc}
+                size="sm"
+                label={
+                  <>
+                    <em>{acc === "uk" ? "UK" : "US"}</em>
+                    <span className="ipa">{acc === "uk" ? p.uk || p.us : p.us || p.uk}</span>
+                  </>
+                }
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+    );
+  }
   const both = entry.uk && entry.us && entry.uk !== entry.us;
   const items: ["uk" | "us", string, string][] = both
     ? [["uk", "UK", entry.uk], ["us", "US", entry.us]]
@@ -112,9 +148,14 @@ export function EntryView({ entry, mode = "detail", eager = true }: { entry: Ent
           </aside>
         )}
 
-        <ol className="senses">
+        <ol className={`senses${entry.pron?.length ? " has-pron" : ""}`}>
           {entry.senses.map((s, i) => (
             <li key={i}>
+              {entry.pron?.length ? (
+                <span className="sense-v" title={`Reading ${(s.v ?? 0) + 1}`} aria-label={`Reading ${(s.v ?? 0) + 1}`}>
+                  {(s.v ?? 0) + 1}
+                </span>
+              ) : null}
               <span className="pos">{s.pos}</span>
               {s.en && (
                 <span className="en" lang="en">
