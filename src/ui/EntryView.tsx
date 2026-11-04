@@ -64,6 +64,10 @@ export function EntryView({ entry, mode = "detail", eager = true }: { entry: Ent
     const hit = atlas.words.find((x) => x.word.toLowerCase() === w);
     return { label: f, id: hit?.id };
   });
+  const rootLinks = (entry.root ?? []).map((w) => {
+    const hit = atlas.words.find((x) => x.word.toLowerCase() === w.toLowerCase());
+    return { label: w, id: hit?.id };
+  });
   const status = card ? (isMastered(card) ? "Mastered" : "Learning") : null;
 
   return (
@@ -100,6 +104,13 @@ export function EntryView({ entry, mode = "detail", eager = true }: { entry: Ent
           {entry.w}
         </h2>
         <Pronounce entry={entry} refw={ref ?? entry} />
+
+        {entry.ety && (
+          <aside className="etym">
+            <h3 className="eyebrow">Etymology</h3>
+            <p className="etym-sum">{entry.ety}</p>
+          </aside>
+        )}
 
         <ol className="senses">
           {entry.senses.map((s, i) => (
@@ -147,7 +158,7 @@ export function EntryView({ entry, mode = "detail", eager = true }: { entry: Ent
           </section>
         )}
 
-        {(famLinks.length > 0 || entry.syn.length > 0 || entry.ant.length > 0) && (
+        {(famLinks.length > 0 || rootLinks.length > 0 || entry.syn.length > 0 || entry.ant.length > 0) && (
           <section className="block relations">
             {famLinks.length > 0 && (
               <div>
@@ -160,6 +171,22 @@ export function EntryView({ entry, mode = "detail", eager = true }: { entry: Ent
                       </button>
                     ) : (
                       <span key={f.label}>{f.label}</span>
+                    ),
+                  )}
+                </p>
+              </div>
+            )}
+            {rootLinks.length > 0 && (
+              <div>
+                <h3 className="eyebrow">Same root</h3>
+                <p>
+                  {rootLinks.map((r) =>
+                    r.id && mode === "detail" ? (
+                      <button key={r.label} className="link" onClick={() => openWord(r.id!)}>
+                        {r.label}
+                      </button>
+                    ) : (
+                      <span key={r.label}>{r.label}</span>
                     ),
                   )}
                 </p>
