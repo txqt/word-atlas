@@ -586,8 +586,9 @@ code {
   gap: 8px;
 }
 .logo-text b {
-  font: 700 21px/1 "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", serif;
-  letter-spacing: 0.06em;
+  font: 600 20px/1 var(--serif);
+  font-variation-settings: "opsz" 40;
+  letter-spacing: -0.01em;
 }
 .logo-text small {
   font: italic 500 14px/1 var(--serif);
@@ -1064,11 +1065,6 @@ code {
   font: italic 500 15px var(--serif);
   color: var(--terra);
 }
-.senses .zh {
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.45;
-}
 .senses .en {
   grid-column: 2;
   font: italic 400 15px/1.45 var(--serif);
@@ -1107,11 +1103,6 @@ code {
 .ex-speak {
   vertical-align: -6px;
   margin-left: 8px;
-}
-.ex-zh {
-  margin-top: 4px;
-  color: var(--ink-3);
-  font-size: 14.5px;
 }
 .collocations {
   list-style: none;
@@ -1155,25 +1146,6 @@ code {
 .relations .link:hover {
   color: var(--terra-ink);
   border-color: currentColor;
-}
-.tip {
-  margin-top: 24px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 14px 16px;
-  border-radius: var(--r);
-  background: var(--ochre-soft);
-  color: var(--ink);
-}
-.tip svg {
-  color: var(--ochre);
-  flex: none;
-  margin-top: 3px;
-}
-.tip p {
-  font-size: 14.5px;
-  line-height: 1.6;
 }
 .memory-note {
   margin-top: 18px;
@@ -1354,7 +1326,7 @@ code {
 }
 .palette-list li[role="option"] {
   display: grid;
-  grid-template-columns: 44px auto 1fr auto;
+  grid-template-columns: 44px 1fr auto;
   align-items: center;
   gap: 14px;
   padding: 8px 10px;
@@ -1372,13 +1344,6 @@ code {
 .palette-word {
   font: 600 18px var(--serif);
   font-variation-settings: "opsz" 24;
-}
-.palette-zh {
-  color: var(--ink-3);
-  font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .palette-enter {
   color: var(--ink-4);
@@ -1638,7 +1603,8 @@ code {
 }
 .wotd-zh {
   margin-top: 10px;
-  font-weight: 600;
+  font: 400 15px/1.45 var(--sans);
+  color: var(--ink-3);
 }
 .wotd-ex {
   margin-top: 8px;
@@ -2067,15 +2033,6 @@ code {
   text-overflow: ellipsis;
   min-width: 0;
 }
-.tile-zh {
-  grid-column: 1 / -1;
-  margin-top: 3px;
-  font-size: 12.5px;
-  color: var(--ink-3);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .tile-lv {
   font: 700 10px var(--mono);
   color: var(--lv);
@@ -2124,7 +2081,7 @@ code {
   right: 0;
   height: 60px;
   display: grid;
-  grid-template-columns: 48px minmax(90px, 200px) minmax(0, 160px) 1fr 12px 36px;
+  grid-template-columns: 48px minmax(90px, 1fr) minmax(0, 220px) 12px 36px;
   align-items: center;
   gap: 14px;
   padding: 6px 10px;
@@ -2153,13 +2110,6 @@ code {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.row-zh {
-  color: var(--ink-2);
-  font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .row-dot {
   width: 8px;
   height: 8px;
@@ -2174,12 +2124,9 @@ code {
 @media (max-width: 640px) {
   .row {
     grid-template-columns: 44px 1fr 10px 34px;
-    grid-template-rows: auto auto;
     column-gap: 12px;
-    row-gap: 0;
   }
   .row-art {
-    grid-row: 1 / 3;
     width: 44px;
   }
   .row-ipa {
@@ -2189,18 +2136,11 @@ code {
     grid-column: 2;
     font-size: 17px;
   }
-  .row-zh {
-    grid-column: 2;
-    grid-row: 2;
-    font-size: 12.5px;
-  }
   .row-dot {
     grid-column: 3;
-    grid-row: 1 / 3;
   }
   .row .speak {
     grid-column: 4;
-    grid-row: 1 / 3;
   }
 }
 .empty {
@@ -2368,6 +2308,22 @@ code {
   font-size: clamp(48px, 11vw, 96px);
   margin: 0;
 }
+.prompt-definition {
+  width: 100%;
+  max-width: 620px;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.prompt-definition .headword-def {
+  font: italic 500 clamp(20px, 3.4vw, 27px) / 1.4 var(--serif);
+  font-variation-settings: "opsz" 30;
+  letter-spacing: 0;
+  margin: 0;
+  text-wrap: balance;
+  overflow-wrap: normal;
+}
 .prompt-picture {
   width: 100%;
   max-width: 560px;
@@ -2399,10 +2355,6 @@ code {
   color: var(--terra-ink);
   font-weight: 600;
   line-height: 1.2;
-}
-.cloze-zh {
-  color: var(--ink-3);
-  font-size: 14.5px;
 }
 .prompt-listen {
   display: grid;
@@ -3388,13 +3340,6 @@ code {
     transition-duration: 0.01ms !important;
   }
 }
-.usage-note {
-  margin-top: 14px;
-  font-size: 13px;
-  color: var(--ink-3);
-  padding-left: 12px;
-  border-left: 2px solid var(--terra-soft);
-}
 .ex-tag {
   display: inline-block;
   font-size: 11px;
@@ -3762,7 +3707,9 @@ a:hover .mark-needle,
   place-content: center;
   justify-items: center;
   gap: 8px;
-  font: 700 72px "Songti SC", serif;
+  font: 600 clamp(28px, 6vw, 72px) / 1.05 var(--serif);
+  font-variation-settings: "opsz" 144;
+  letter-spacing: -0.02em;
   transition: opacity 0.4s;
 }
 .splash-static small {

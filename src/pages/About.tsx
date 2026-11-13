@@ -11,18 +11,19 @@ export function About() {
       <header className="about-hero">
         <img src={`${BASE}brand/og.webp`} alt="" />
         <div>
-          <p className="eyebrow">关于词光</p>
-          <h1 className="display">一词一画，点亮雅思。</h1>
+          <p className="eyebrow">About Word Atlas</p>
+          <h1 className="display">One word, one picture.</h1>
           <p className="lede">
-            词光把雅思阅读 8000 词整理成 {atlas.count.toLocaleString()} 个词条。每个词一幅原创插画，一句日常例句，一句雅思例句，配英美发音、常用搭配和易混提示。学会一个，就在你的星图上点亮一颗星。
+            Word Atlas turns the 8,000 words of IELTS reading into {atlas.count.toLocaleString()} entries. Each one gets an original illustration, an everyday example, an IELTS example, UK and US audio, common collocations
+            and a note on words people mix up. Learn one, and a star lights up in your galaxy.
           </p>
-          <p className="lede">它免费、开源、无需注册。代码用 MIT，词库用 CC BY 4.0，谁都可以拿去用。</p>
+          <p className="lede">It is free, open source, and needs no sign-up. The code is MIT, the word list is CC BY 4.0; anyone can take it.</p>
           <div className="about-actions">
             <a className="btn btn-primary" href={REPO_URL} target="_blank" rel="noreferrer">
-              <Github size={18} /> 在 GitHub 上查看
+              <Github size={18} /> View on GitHub
             </a>
             <a className="btn btn-ghost" href={`${REPO_URL}/tree/main/data`} target="_blank" rel="noreferrer">
-              <Database size={18} /> 下载词库 JSON / CSV
+              <Database size={18} /> Download the JSON / CSV
             </a>
           </div>
         </div>
@@ -30,83 +31,86 @@ export function About() {
 
       <div className="about-grid">
         <section className="panel">
-          <h3 className="eyebrow">为什么记得住</h3>
+          <h3 className="eyebrow">Why it sticks</h3>
           <ul className="feature-list">
             <li>
-              <b>先看见。</b>每个词都有一幅画，画的就是第一句例句里发生的事。
+              <b>See it first.</b> Every word comes with a picture of what happens in its first example sentence.
             </li>
             <li>
-              <b>再想起。</b>选义、看图补句、听音辨词、拼写，从认得走到会写。
+              <b>Then recall it.</b> Pick the meaning, fill the gap, identify what you hear, spell it: from recognition to production.
             </li>
             <li>
-              <b>刚好在快忘时重逢。</b>FSRS 是新版 Anki 用的开源记忆算法，只在你快要遗忘时安排复习。
+              <b>Meet it just before you forget.</b> FSRS is the open-source memory algorithm behind modern Anki. It schedules a review only when a word is about to fade.
             </li>
             <li>
-              <b>分数诚实。</b>只算第一次作答。答错的词会换个题型再见一面，但不会抬高正确率。
+              <b>An honest score.</b> Only first attempts count. A missed word comes back in another format, but it never inflates your accuracy.
             </li>
             <li>
-              <b>进度只属于你。</b>没有账号，没有服务器，数据存在你的浏览器里，随时能导出。
+              <b>Your progress is yours.</b> No account, no server. The data sits in your browser and you can export it any time.
             </li>
           </ul>
         </section>
 
         <section className="panel">
-          <h3 className="eyebrow">快捷键</h3>
+          <h3 className="eyebrow">Keyboard shortcuts</h3>
           <dl className="keys">
             <div>
               <dt>
                 <kbd>⌘</kbd>
-                <kbd>K</kbd> 或 <kbd>/</kbd>
+                <kbd>K</kbd> or <kbd>/</kbd>
               </dt>
-              <dd>搜索任何词</dd>
+              <dd>Search any word</dd>
             </div>
             <div>
               <dt>
                 <kbd>1</kbd>–<kbd>4</kbd>
               </dt>
-              <dd>选择答案</dd>
+              <dd>Choose an answer</dd>
             </div>
             <div>
               <dt>
                 <kbd>Enter</kbd>
               </dt>
-              <dd>确认 / 继续</dd>
+              <dd>Confirm / continue</dd>
             </div>
             <div>
               <dt>
                 <kbd>←</kbd> <kbd>→</kbd>
               </dt>
-              <dd>词卡里切换上一个、下一个</dd>
+              <dd>Previous and next entry</dd>
             </div>
             <div>
               <dt>
                 <kbd>Esc</kbd>
               </dt>
-              <dd>关闭弹窗</dd>
+              <dd>Close a dialog</dd>
             </div>
           </dl>
         </section>
 
         <section className="panel">
-          <h3 className="eyebrow">内容从哪里来</h3>
+          <h3 className="eyebrow">Where the content comes from</h3>
           <p className="muted">
-            释义、例句、搭配和提示由大语言模型按统一的词典规范重新撰写；插画由图像模型按统一画风逐词绘制；发音和朗读由 ElevenLabs 合成（英音 Alice，美音 Sarah）。所有内容都经过结构和一致性的自动校验，但没有逐条人工审校。看到错的地方，欢迎在 GitHub 提 Issue，或者直接改数据提 PR。
+            Definitions, examples, collocations and notes were rewritten by a large language model against a single dictionary style guide; illustrations were drawn word by word by an image model in one style; audio was
+            synthesised with ElevenLabs (Alice for UK, Sarah for US). Everything passed automated structural and consistency checks, but no entry was reviewed by hand. Found a mistake? Open an issue on GitHub, or edit the data and
+            send a PR.
           </p>
-          <p className="muted">词光不是官方雅思词表，也不承诺提分。它只想把背单词这件事，做得好看一点、扎实一点。</p>
+          <p className="muted">Word Atlas is not an official IELTS word list and promises no score. It only wants to make learning words a little better looking, and a little more solid.</p>
         </section>
 
         <section className="panel">
-          <h3 className="eyebrow">给开发者</h3>
+          <h3 className="eyebrow">For developers</h3>
           <p className="muted">
-            <code>data/word-atlas.json</code> 和 <code>.csv</code> 是完整词库；<code>public/atlas</code> 里是网页用的分块数据、插画和音频。拿去做 Anki 牌组、背词小程序、浏览器插件，或者 AI 应用的评测集，署名即可。
+            <code>data/word-atlas.json</code> and the <code>.csv</code> hold the full word list; <code>public/atlas</code> holds the chunked data, illustrations and audio the web app uses. Take it for an Anki deck, a flashcard app,
+            a browser extension or an eval set for AI products; attribution is all we ask.
           </p>
           <a className="link" href={`${REPO_URL}#readme`} target="_blank" rel="noreferrer">
-            阅读文档 <ArrowUpRight size={14} />
+            Read the docs <ArrowUpRight size={14} />
           </a>
         </section>
       </div>
       <p className="colophon">
-        <Heart size={14} /> 做给每一个在背单词的人。
+        <Heart size={14} /> Made for everyone learning words.
       </p>
     </div>
   );

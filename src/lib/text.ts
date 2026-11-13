@@ -64,3 +64,6 @@ export const splitPair = (s: string) => {
 };
 
 export const plural = (n: number) => n.toLocaleString("en-US");
+
+/** Topic keys are English slugs; the stored display names are Chinese. */
+export const topicLabel = (key: string) => key.replace(/-/g, " ").replace(/^./, (c) => c.toUpperCase());

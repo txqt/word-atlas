@@ -40,7 +40,7 @@ interface P {
 
 const ease = (t: number) => 1 - Math.pow(1 - Math.min(1, Math.max(0, t)), 3);
 
-/** Sample bright pixels of the logo, the Chinese name and the wordmark as particle targets. */
+/** Sample bright pixels of the mark and the wordmark as particle targets. */
 function targets(w: number, h: number, count: number) {
   const c = document.createElement("canvas");
   c.width = w;
@@ -70,15 +70,12 @@ function targets(w: number, h: number, count: number) {
   g.lineTo(cx, cy + R * 0.1);
   g.closePath();
   g.fill();
-  const zh = Math.min(w * 0.3, s * 0.24);
-  g.font = `700 ${zh}px "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", serif`;
+  const en = Math.min(w * 0.34, s * 0.12);
+  g.font = `700 ${en}px "Fraunces Variable", Georgia, serif`;
   g.textAlign = "center";
   g.textBaseline = "middle";
-  g.fillText("词光", cx, cy + R + zh * 0.78);
-  const en = Math.max(18, zh * 0.24);
-  g.font = `700 ${en}px "Fraunces Variable", Georgia, serif`;
-  g.letterSpacing = `${en * 0.34}px`;
-  g.fillText("WORD ATLAS", cx, cy + R + zh * 1.52);
+  g.letterSpacing = `${en * 0.22}px`;
+  g.fillText("WORD ATLAS", cx, cy + R + en * 1.9);
   const data = g.getImageData(0, 0, w, h).data;
   // Take every lit pixel, then a random subset: no visible sampling grid.
   const all: [number, number][] = [];
@@ -88,7 +85,7 @@ function targets(w: number, h: number, count: number) {
     const [x, y] = all[Math.floor(Math.random() * all.length)];
     pts.push([x + Math.random() * 2, y + Math.random() * 2]);
   }
-  return { pts, cy: cy + R, wordTop: cy + R + zh * 1.3 };
+  return { pts, cy: cy + R, wordTop: cy + R + en * 1.5 };
 }
 
 export function Splash({ onDone }: { onDone: () => void }) {
@@ -237,22 +234,21 @@ export function Splash({ onDone }: { onDone: () => void }) {
   }); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className={`splash is-${phase} ${reduce ? "is-reduced" : ""}`} onClick={() => open()} role="dialog" aria-label="欢迎打开雅思大门，点击进入">
+    <div className={`splash is-${phase} ${reduce ? "is-reduced" : ""}`} onClick={() => open()} role="dialog" aria-label="Welcome: click to enter">
       <div className="door door-l" />
       <div className="door door-r" />
       <div className="splash-light" />
       <canvas ref={canvas} className="splash-canvas" aria-hidden="true" />
       {reduce && (
         <div className="splash-static">
-          <b>词光</b>
-          <small>WORD ATLAS</small>
+          <b>Word Atlas</b>
         </div>
       )}
       <div className="splash-copy">
-        <p className="splash-tag">欢迎打开雅思大门</p>
+        <p className="splash-tag">Your IELTS door is open</p>
         <p className="splash-hint">
           <span className="splash-key" />
-          点击开启 · 按任意键
+          Click to enter · press any key
         </p>
       </div>
       <button
@@ -262,7 +258,7 @@ export function Splash({ onDone }: { onDone: () => void }) {
           open(false);
         }}
       >
-        跳过
+        Skip
       </button>
     </div>
   );

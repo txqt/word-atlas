@@ -75,19 +75,20 @@ export async function renderWordCard(atlas: Atlas, e: Entry) {
   y += 62;
   ctx.font = `400 34px ${SANS}`;
   ctx.fillStyle = "#6B6F80";
-  ctx.fillText([e.uk && `英 ${e.uk}`, e.us && e.us !== e.uk && `美 ${e.us}`].filter(Boolean).join("    "), pad, y);
+  ctx.fillText([e.uk && `UK ${e.uk}`, e.us && e.us !== e.uk && `US ${e.us}`].filter(Boolean).join("    "), pad, y);
   y += 72;
-  ctx.font = `600 40px ${SANS}`;
-  ctx.fillStyle = "#1E2640";
   const s0 = e.senses[0];
   ctx.fillStyle = "#C4573A";
   ctx.font = `italic 400 38px ${SERIF}`;
   ctx.fillText(s0.pos, pad, y);
   const posW = ctx.measureText(s0.pos + "  ").width;
   ctx.fillStyle = "#1E2640";
-  ctx.font = `600 40px ${SANS}`;
-  ctx.fillText(e.senses.slice(0, 2).map((s) => s.zh).join("；"), pad + posW, y);
-  y += 76;
+  ctx.font = `600 34px ${SANS}`;
+  for (const line of wrap(ctx, s0.en || s0.zh, art - posW).slice(0, 2)) {
+    ctx.fillText(line, pad + posW, y);
+    y += 44;
+  }
+  y += 32;
   if (e.ex[0]) {
     ctx.font = `italic 400 36px ${SERIF}`;
     ctx.fillStyle = "#3C4560";
@@ -95,21 +96,15 @@ export async function renderWordCard(atlas: Atlas, e: Entry) {
       ctx.fillText(line, pad, y);
       y += 50;
     }
-    ctx.font = `400 30px ${SANS}`;
-    ctx.fillStyle = "#7A7C88";
-    for (const line of wrap(ctx, e.ex[0].zh, art).slice(0, 2)) {
-      ctx.fillText(line, pad, y + 6);
-      y += 44;
-    }
   }
   ctx.fillStyle = "rgba(30,38,64,.14)";
   ctx.fillRect(pad, H - 120, art, 2);
   ctx.fillStyle = "#1E2640";
   ctx.font = `600 34px ${SERIF}`;
-  ctx.fillText("词光 · Word Atlas", pad, H - 62);
+  ctx.fillText("Word Atlas", pad, H - 62);
   ctx.font = `400 26px ${SANS}`;
   ctx.fillStyle = "#7A7C88";
-  const tag = "一词一画，点亮雅思";
+  const tag = "One word, one picture";
   ctx.fillText(tag, W - pad - ctx.measureText(tag).width, H - 64);
   return c;
 }
@@ -129,8 +124,8 @@ export async function shareWord(atlas: Atlas, e: Entry) {
     a.download = file.name;
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 2000);
-    toast("分享卡片已保存", "ok");
+    toast("Share card saved", "ok");
   } catch {
-    toast("卡片生成失败，请稍后再试", "warn");
+    toast("Could not build the card, try again later", "warn");
   }
 }
