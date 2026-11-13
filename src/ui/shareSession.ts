@@ -7,6 +7,9 @@ import { toast } from "./Toast";
 const SERIF = '"Fraunces Variable", "Songti SC", "Noto Serif SC", Georgia, serif';
 const SANS = '-apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif';
 
+/** Distinct words studied this session. The card shows at most 9 thumbnails but reports them all. */
+export const sessionWordCount = (s: ActiveSession) => new Set(s.steps.map((x) => x.id)).size;
+
 const load = (src: string) =>
   new Promise<HTMLImageElement | null>((r) => {
     const i = new Image();
@@ -55,14 +58,15 @@ export async function shareSession(atlas: Atlas, s: ActiveSession) {
       ctx.restore();
     });
     const st = sessionStats(s);
+    const total = sessionWordCount(s);
     const top = pad + 3 * cell + 2 * gapPx + 96;
     const d = new Date();
     ctx.fillStyle = "#8A8C96";
     ctx.font = `500 28px ${SANS}`;
-    ctx.fillText(`${d.toLocaleDateString("en-GB", { month: "long", day: "numeric" })} · ${ids.length} stars lit today`, pad, top - 24);
+    ctx.fillText(`${d.toLocaleDateString("en-GB", { month: "long", day: "numeric" })} · ${total} stars lit today`, pad, top - 24);
     ctx.fillStyle = "#1E2640";
     ctx.font = `600 64px ${SERIF}`;
-    ctx.fillText(`Learned ${ids.length} words · ${st.accuracy}% first try`, pad, top + 52, W - pad * 2);
+    ctx.fillText(`Learned ${total} words · ${st.accuracy}% first try`, pad, top + 52, W - pad * 2);
     const wrong = Object.values(s.graded).filter((g) => g === Rating.Again).length;
     ctx.font = `400 30px ${SANS}`;
     ctx.fillStyle = "#5A6075";
