@@ -310,6 +310,8 @@ export function importBackup(text: string): { ok: true; cards: number } | { ok: 
     return { ok: false, error: "This is not a Word Atlas backup." };
   const id = state.progress.datasetId;
   if (data.progress.datasetId !== id) return { ok: false, error: "The backup belongs to another word list. Switch to it first." };
+  // Reject an unsupported inner version instead of letting sanitizeProgress empty it and overwrite real cards.
+  if (data.progress.version !== 2) return { ok: false, error: "That backup's data version is not supported. Nothing was changed." };
   const progress = sanitizeProgress({ ...data.progress, session: null }, id);
   state = { ...state, progress, settings: { ...sanitizeSettings(data.settings), onboarded: true } };
   emit();
