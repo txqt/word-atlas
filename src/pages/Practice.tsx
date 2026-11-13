@@ -187,7 +187,7 @@ function TypingRound({ mode, entries, onExit, onAgain }: { mode: Mode; entries: 
     // `liter` for `litre` is the right answer spelled the other way: the item is
     // correct even though the letters differ, so it earns its full length.
     const accepted = exact ? correctCharacterCount(final, target) : Array.from(clean(target)).length;
-    if (!exact) say(`${final.trim()} 与 ${target} 是同一个词，两种拼写都算对。`);
+    if (!exact) say(`${final.trim()} and ${target} are the same word; either spelling counts.`);
     if (settings.sfx) void cue("correct");
     const t = totalsRef.current;
     const credit = exact ? 0 : Math.max(0, itemRef.current.typed - itemRef.current.correct);
